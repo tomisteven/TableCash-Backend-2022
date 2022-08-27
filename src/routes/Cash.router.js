@@ -7,7 +7,8 @@ import{
     eliminarAño,
     addConsumo,
     editSaldo,
-    getMes
+    getMes,
+    getMeses
 } from '../controllers/Cash.controller';
 
 
@@ -18,13 +19,10 @@ router.get('/', getCash);
 router.post('/Cash', createCash);
 router.post('/Cash/mesActual/:id', createMesActual);
 router.delete('/Cash/:id', eliminarAño);
-
 router.post('/Cash/:id_anio/:id_mes/consumo', addConsumo);
-
 router.put('/Cash/:id_anio/:id_mes/saldo', editSaldo);
-
 router.get('/Cash/mes/:id_anio/:id_mes', getMes);
-
+router.get('/Cash/meses/:id_anio', getMeses);
 
 
 export default router;

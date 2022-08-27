@@ -37,6 +37,12 @@ const createMesActual = async (req, res) => {
     res.json(cash);
 }
 
+const getMeses = async (req, res) => {
+    const {id_anio} = req.params;
+    const cash = await Cash.findById(id_anio);
+    res.json(cash.meses);
+}
+
 const editSaldo = async (req, res) => {
     const {id_anio, id_mes} = req.params;
     const {saldo, gastoTotal} = req.body;
@@ -66,6 +72,8 @@ const addConsumo = async (req, res) => {
 }
 
 
+
+
 export {
     getCash,
     createCash,
@@ -73,5 +81,6 @@ export {
     eliminarAño,
     addConsumo,
     editSaldo,
-    getMes
+    getMes,
+    getMeses
 }

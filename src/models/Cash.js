@@ -35,6 +35,10 @@ const Cash = new Schema({
                         default : 'Consumo',
 
                     },
+                    ingreso : {
+                        type : Boolean,
+                        default : false,
+                    },
                 }
             ]
         }

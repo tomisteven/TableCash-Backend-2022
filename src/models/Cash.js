@@ -23,7 +23,7 @@ const Cash = new Schema({
             consumos : [
                 {
                     fecha : {
-                        type : String,
+                        type : Date,
                         default : Date.now()
                     },
                     precio : {

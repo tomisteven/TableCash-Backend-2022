@@ -70,7 +70,7 @@ const addConsumo = async (req, res) => {
         mes.gastoTotal = mes.gastoTotal + req.body.precio;
     }
     else {
-        mes.saldo =+ req.body.precio;
+        mes.saldo += req.body.precio;
     }
     await cash.save();
     res.json(cash.meses);

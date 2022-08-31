@@ -65,7 +65,9 @@ const addConsumo = async (req, res) => {
     const cash = await Cash.findById(id_anio);
     const mes = cash.meses.id(id_mes);
     mes.consumos.push(req.body);
-    mes.saldoRestante = mes.saldoRestante - req.body.precio;
+    if (req.body.ingreso === false) {
+        mes.saldoRestante += req.body.precio;
+    }
     mes.gastoTotal = mes.gastoTotal + req.body.precio;
     await cash.save();
     res.json(cash.meses);

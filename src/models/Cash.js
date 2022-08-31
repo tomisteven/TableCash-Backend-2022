@@ -24,7 +24,7 @@ const Cash = new Schema({
                 {
                     fecha : {
                         type : String,
-                        default : Date.now().toLocaleString(),
+                        default : Date.now()
                     },
                     precio : {
                         type : Number,

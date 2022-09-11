@@ -66,6 +66,7 @@ const addConsumo = async (req, res) => {
     const mes = cash.meses.id(id_mes);
     mes.consumos.push(req.body);
     if (req.body.ingreso == false) {
+        cash.total = cash.total + req.body.precio;
         mes.saldoRestante -= req.body.precio;
         mes.gastoTotal = mes.gastoTotal + req.body.precio;
     }

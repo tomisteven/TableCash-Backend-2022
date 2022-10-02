@@ -72,12 +72,29 @@ const addConsumo = async (req, res) => {
     }
     else {
         mes.saldo = mes.saldo + req.body.precio;
+        mes.saldoRestante = mes.saldoRestante + req.body.precio;
     }
     await cash.save();
     res.json(cash.meses);
 }
 
-
+const editGastoGeneral = async (req, res) => {
+    const {id_anio, id_mes} = req.params;
+    const {gastoTotal} = req.body;
+    const cash = await Cash.findById(id_anio);
+    const mes = cash.meses.id(id_mes);
+    mes.gastoTotal = gastoTotal;
+    await cash.save();
+    res.json(cash.meses);
+}
+const editGastoGeneralAnual = async (req, res) => {
+    const {id_anio} = req.params;
+    const {total} = req.body;
+    const cash = await Cash.findById(id_anio);
+    cash.total = total;
+    await cash.save();
+    res.json(cash.meses);
+}
 
 
 export {
@@ -88,5 +105,7 @@ export {
     addConsumo,
     editSaldo,
     getMes,
-    getMeses
+    getMeses,
+    editGastoGeneral,
+    editGastoGeneralAnual
 }

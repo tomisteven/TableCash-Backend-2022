@@ -8,7 +8,9 @@ import{
     addConsumo,
     editSaldo,
     getMes,
-    getMeses
+    getMeses,
+    editGastoGeneral,
+    editGastoGeneralAnual
 } from '../controllers/Cash.controller';
 
 
@@ -25,5 +27,8 @@ router.put('/Cash/:id_anio/:id_mes/saldo', editSaldo);
 router.get('/Cash/mes/:id_anio/:id_mes', getMes);
 router.get('/Cash/meses/:id_anio', getMeses);
 
+
+router.put('/Cash/editgasto/:id_anio/:id_mes', editGastoGeneral);
+router.put('/Cash/editgasto/:id_anio', editGastoGeneralAnual);
 
 export default router;

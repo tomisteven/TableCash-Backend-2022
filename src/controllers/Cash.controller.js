@@ -54,11 +54,43 @@ const editSaldo = async (req, res) => {
     res.json(cash.meses);
 }
 
+const editSaldoRestante = async (req, res) => {
+    const {id_anio, id_mes} = req.params;
+    const {saldoRestante} = req.body;
+    const cash = await Cash.findById(id_anio);
+    const mes = cash.meses.id(id_mes);
+    mes.saldoRestante = saldoRestante;
+    await cash.save();
+    res.json(cash.meses);
+}
+
 const eliminarAño = async (req, res) => {
     const {id} = req.params;
     const cash = await Cash.findByIdAndDelete(id);
     res.json(cash);    
 }
+
+const eliminarItemMes = async (req, res) => {
+    const {id_anio, id_mes, id_pay} = req.params
+    const cash = await Cash.findById(id_anio);
+    const mes = cash.meses.id(id_mes);
+    const item = mes.consumos.id(id_pay);
+    //si es un pago
+    if (item.ingreso == false) {
+        mes.saldoRestante = mes.saldoRestante + item.precio;
+        mes.gastoTotal = mes.gastoTotal - item.precio;
+        cash.total = cash.total - item.precio;
+        mes.saldo = mes.saldo + item.precio;
+    }else{
+        mes.saldo = mes.saldo - item.precio;
+        mes.saldoRestante = mes.saldoRestante - item.precio;
+    }
+    item.remove();
+    await cash.save();
+    res.json(cash.meses);
+}
+
+
 
 const addConsumo = async (req, res) => { 
     const {id_anio, id_mes } = req.params;
@@ -107,5 +139,7 @@ export {
     getMes,
     getMeses,
     editGastoGeneral,
-    editGastoGeneralAnual
+    editGastoGeneralAnual,
+    eliminarItemMes,
+    editSaldoRestante
 }
